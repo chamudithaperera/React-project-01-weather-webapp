@@ -15,9 +15,8 @@ function App() {
   return showSplash ? (
     <SplashScreen />
   ) : (
-    <div>
-      {/* Main weather app goes here */}
-      <h1>Welcome to Weatherly!</h1>
+    <div className="glass-bg">
+      <input className="search-bar" type="text" placeholder="Search for location" />
     </div>
   );
 }
