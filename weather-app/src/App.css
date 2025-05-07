@@ -149,3 +149,79 @@ div.glass-bg {
   border-radius: 12px;
   padding: 6px 0 2px 0;
 }
+
+.weather-location {
+  font-size: 1.05rem;
+  color: #b3e0ff;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.forecast-card {
+  width: 340px;
+  padding: 24px 0 10px 0;
+}
+
+.forecast-tabs {
+  margin-left: 12px;
+}
+.forecast-tabs button {
+  background: rgba(255,255,255,0.10);
+  border: none;
+  color: #b3e0ff;
+  font-size: 0.95rem;
+  padding: 4px 16px;
+  border-radius: 12px;
+  margin-right: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.forecast-tabs button.active {
+  background: #3a7bd5;
+  color: #fff;
+  font-weight: 600;
+}
+.forecast-tabs button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.forecast-list {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.forecast-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px;
+  border-radius: 14px;
+  margin-bottom: 4px;
+  background: transparent;
+  transition: background 0.2s;
+}
+.forecast-row.selected {
+  background: rgba(58, 123, 213, 0.18);
+}
+
+.forecast-icon {
+  font-size: 1.6rem;
+  margin-right: 8px;
+}
+
+.forecast-temp {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+  width: 80px;
+  text-align: left;
+}
+
+.forecast-date {
+  font-size: 0.98rem;
+  color: #b3e0ff;
+  width: 110px;
+  text-align: right;
+}

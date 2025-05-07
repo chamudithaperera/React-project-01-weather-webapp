@@ -59,6 +59,7 @@ const CurrentWeather = () => {
   return (
     <div className="weather-card glass-card">
       <div className="weather-header">Current Weather</div>
+      <div className="weather-location">{weather.name}</div>
       <div className="weather-time">{time}</div>
       <div className="weather-main">
         <span className="weather-icon">{icon}</span>
