@@ -17,21 +17,26 @@ const weatherIcons = {
 const Forecast = () => {
   const [hourly, setHourly] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchForecast = (lat, lon) => {
       fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,daily,alerts&appid=${API_KEY}&units=metric`)
         .then(res => res.json())
         .then(data => {
+          console.log('OpenWeather API response:', data);
           if (data && data.hourly) {
             setHourly(data.hourly.slice(0, 12));
+            setError(null);
           } else {
             setHourly(null);
+            setError(data && data.message ? data.message : 'Hourly forecast not found.');
           }
           setLoading(false);
         })
-        .catch(() => {
+        .catch((err) => {
           setHourly(null);
+          setError('Network or fetch error.');
           setLoading(false);
         });
     };
@@ -50,7 +55,7 @@ const Forecast = () => {
   }, []);
 
   if (loading) return <div className="weather-card glass-card">Loading...</div>;
-  if (!hourly) return <div className="weather-card glass-card">Hourly forecast not found.</div>;
+  if (!hourly) return <div className="weather-card glass-card">{error || 'Hourly forecast not found.'}</div>;
 
   return (
     <div className="weather-card glass-card forecast-card">

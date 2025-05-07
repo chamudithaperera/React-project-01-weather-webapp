@@ -267,3 +267,57 @@ div.glass-bg {
   color: #fff;
   font-weight: 500;
 }
+
+.popular-cities-card {
+  width: 320px;
+  padding: 24px 0 10px 0;
+  margin-top: 18px;
+}
+.popular-cities-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 24px 12px 24px;
+}
+.view-more {
+  color: #b3e0ff;
+  font-size: 0.98rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+.popular-cities-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 18px 8px 18px;
+}
+.popular-city-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-radius: 12px;
+  background: transparent;
+  transition: background 0.2s;
+}
+.popular-city-icon {
+  font-size: 1.5rem;
+  width: 32px;
+  text-align: center;
+}
+.popular-city-name {
+  flex: 1;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.popular-city-desc {
+  color: #b3e0ff;
+  font-size: 0.98rem;
+  text-align: right;
+  min-width: 90px;
+}
