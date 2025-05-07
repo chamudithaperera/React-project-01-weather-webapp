@@ -225,3 +225,45 @@ div.glass-bg {
   width: 110px;
   text-align: right;
 }
+
+.hourly-forecast-section {
+  margin-top: 18px;
+  width: 100%;
+}
+.hourly-title {
+  font-size: 1.05rem;
+  color: #b3e0ff;
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-left: 18px;
+}
+.hourly-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 0 18px 8px 18px;
+}
+.hourly-item {
+  background: rgba(255,255,255,0.10);
+  border-radius: 14px;
+  min-width: 60px;
+  padding: 10px 6px 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.08);
+}
+.hourly-time {
+  font-size: 0.95rem;
+  color: #b3e0ff;
+  margin-bottom: 2px;
+}
+.hourly-icon {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+.hourly-temp {
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: 500;
+}

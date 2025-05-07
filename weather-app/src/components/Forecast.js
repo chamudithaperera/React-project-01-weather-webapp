@@ -14,24 +14,24 @@ const weatherIcons = {
   Mist: '🌫️',
 };
 
-function getDayName(dt) {
-  return new Date(dt * 1000).toLocaleDateString('en-US', { weekday: 'short' });
-}
-function getDateString(dt) {
-  const d = new Date(dt * 1000);
-  return `${d.getDate()} ${d.toLocaleString('en-US', { month: 'short' })}, ${getDayName(dt)}`;
-}
-
 const Forecast = () => {
-  const [forecast, setForecast] = useState(null);
+  const [hourly, setHourly] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchForecast = (lat, lon) => {
-      fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${API_KEY}&units=metric`)
+      fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,daily,alerts&appid=${API_KEY}&units=metric`)
         .then(res => res.json())
         .then(data => {
-          setForecast(data.daily.slice(0, 7));
+          if (data && data.hourly) {
+            setHourly(data.hourly.slice(0, 12));
+          } else {
+            setHourly(null);
+          }
+          setLoading(false);
+        })
+        .catch(() => {
+          setHourly(null);
           setLoading(false);
         });
     };
@@ -50,25 +50,27 @@ const Forecast = () => {
   }, []);
 
   if (loading) return <div className="weather-card glass-card">Loading...</div>;
-  if (!forecast) return <div className="weather-card glass-card">Forecast not found.</div>;
+  if (!hourly) return <div className="weather-card glass-card">Hourly forecast not found.</div>;
 
   return (
     <div className="weather-card glass-card forecast-card">
-      <div className="weather-header">Forecast <span className="forecast-tabs"><button className="active">7 Days</button><button disabled>10 Days</button></span></div>
-      <div className="forecast-list">
-        {forecast.map((day, idx) => {
-          const main = day.weather[0].main;
-          const icon = weatherIcons[main] || '🌈';
-          const min = Math.round(day.temp.min);
-          const max = Math.round(day.temp.max);
-          return (
-            <div className={`forecast-row${idx === 3 ? ' selected' : ''}`} key={day.dt}>
-              <span className="forecast-icon">{icon}</span>
-              <span className="forecast-temp">{max}° / {min}°</span>
-              <span className="forecast-date">{getDateString(day.dt)}</span>
-            </div>
-          );
-        })}
+      <div className="hourly-forecast-section">
+        <div className="hourly-title">Next 12 Hours</div>
+        <div className="hourly-list">
+          {hourly.map((hour) => {
+            const main = hour.weather[0].main;
+            const icon = weatherIcons[main] || '🌈';
+            const temp = Math.round(hour.temp);
+            const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            return (
+              <div className="hourly-item" key={hour.dt}>
+                <div className="hourly-time">{time}</div>
+                <div className="hourly-icon">{icon}</div>
+                <div className="hourly-temp">{temp}°</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
