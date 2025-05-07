@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SplashScreen from './components/SplashScreen';
+import HomePage from './components/HomePage';
 import './App.css';
 
 function App() {
@@ -15,9 +16,7 @@ function App() {
   return showSplash ? (
     <SplashScreen />
   ) : (
-    <div className="glass-bg">
-      <input className="search-bar" type="text" placeholder="Search for location" />
-    </div>
+    <HomePage />
   );
 }
 

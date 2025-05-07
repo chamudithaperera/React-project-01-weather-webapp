@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../App.css';
 
 const API_KEY = '54bccc8665dee92f062dc136a6060eb3';
-const CITY = 'London';
+const DEFAULT_CITY = 'London';
 
 const weatherIcons = {
   Rain: '🌧️',
@@ -19,14 +19,29 @@ const CurrentWeather = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setWeather(data);
-        setLoading(false);
-      });
+    const fetchWeather = (url) => {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          setWeather(data);
+          setLoading(false);
+        });
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
+        },
+        () => {
+          // If user denies or error, fallback to default city
+          fetchWeather(`https://api.openweathermap.org/data/2.5/weather?q=${DEFAULT_CITY}&appid=${API_KEY}&units=metric`);
+        }
+      );
+    } else {
+      fetchWeather(`https://api.openweathermap.org/data/2.5/weather?q=${DEFAULT_CITY}&appid=${API_KEY}&units=metric`);
+    }
   }, []);
 
   if (loading) return <div className="weather-card glass-card">Loading...</div>;
